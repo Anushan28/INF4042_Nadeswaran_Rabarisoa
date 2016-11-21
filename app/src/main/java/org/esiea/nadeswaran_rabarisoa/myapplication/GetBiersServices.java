@@ -3,6 +3,7 @@ package org.esiea.nadeswaran_rabarisoa.myapplication;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.util.Log;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -14,12 +15,7 @@ import android.content.Context;
 public class GetBiersServices extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_FOO = "org.esiea.nadeswaran_rabarisoa.myapplication.action.FOO";
-    private static final String ACTION_BAZ = "org.esiea.nadeswaran_rabarisoa.myapplication.action.BAZ";
-
-    // TODO: Rename parameters
-    private static final String EXTRA_PARAM1 = "org.esiea.nadeswaran_rabarisoa.myapplication.extra.PARAM1";
-    private static final String EXTRA_PARAM2 = "org.esiea.nadeswaran_rabarisoa.myapplication.extra.PARAM2";
+    private static final String GET_ALL_BIERS = "org.esiea.nadeswaran_rabarisoa.myapplication.action.get_all_biers";
 
     public GetBiersServices() {
         super("GetBiersServices");
@@ -32,26 +28,9 @@ public class GetBiersServices extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void startActionFoo(Context context, String param1, String param2) {
+    public static void startActionBiers(Context context, String param1) {
         Intent intent = new Intent(context, GetBiersServices.class);
-        intent.setAction(ACTION_FOO);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
-        context.startService(intent);
-    }
-
-    /**
-     * Starts this service to perform action Baz with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
-    // TODO: Customize helper method
-    public static void startActionBaz(Context context, String param1, String param2) {
-        Intent intent = new Intent(context, GetBiersServices.class);
-        intent.setAction(ACTION_BAZ);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
+        intent.setAction(GET_ALL_BIERS);
         context.startService(intent);
     }
 
@@ -59,14 +38,8 @@ public class GetBiersServices extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             final String action = intent.getAction();
-            if (ACTION_FOO.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-                handleActionFoo(param1, param2);
-            } else if (ACTION_BAZ.equals(action)) {
-                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
-                final String param2 = intent.getStringExtra(EXTRA_PARAM2);
-                handleActionBaz(param1, param2);
+            if (GET_ALL_BIERS.equals(action)) {
+                handleActionBiers("oulou");
             }
         }
     }
@@ -75,17 +48,9 @@ public class GetBiersServices extends IntentService {
      * Handle action Foo in the provided background thread with the provided
      * parameters.
      */
-    private void handleActionFoo(String param1, String param2) {
+    private void handleActionBiers(String param1) {
         // TODO: Handle action Foo
-        throw new UnsupportedOperationException("Not yet implemented");
+        Log.i("TAG", "Downloaded");
     }
 
-    /**
-     * Handle action Baz in the provided background thread with the provided
-     * parameters.
-     */
-    private void handleActionBaz(String param1, String param2) {
-        // TODO: Handle action Baz
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
 }

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(getApplicationContext(), getString(R.string.hello_world), Toast.LENGTH_LONG).show();
         notification_test();
         test_intent();
+        GetBiersServices.startActionBiers(this);
     }
 
     public void notification_test(){

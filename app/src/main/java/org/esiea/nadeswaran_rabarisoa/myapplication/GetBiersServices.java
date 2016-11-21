@@ -28,7 +28,7 @@ public class GetBiersServices extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void startActionBiers(Context context, String param1) {
+    public static void startActionBiers(Context context) {
         Intent intent = new Intent(context, GetBiersServices.class);
         intent.setAction(GET_ALL_BIERS);
         context.startService(intent);
@@ -39,7 +39,7 @@ public class GetBiersServices extends IntentService {
         if (intent != null) {
             final String action = intent.getAction();
             if (GET_ALL_BIERS.equals(action)) {
-                handleActionBiers("oulou");
+                handleActionBiers();
             }
         }
     }
@@ -48,7 +48,7 @@ public class GetBiersServices extends IntentService {
      * Handle action Foo in the provided background thread with the provided
      * parameters.
      */
-    private void handleActionBiers(String param1) {
+    private void handleActionBiers() {
         // TODO: Handle action Foo
         Log.i("TAG", "Downloaded");
     }

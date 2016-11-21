@@ -2,19 +2,21 @@ package org.esiea.nadeswaran_rabarisoa.myapplication;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.icu.text.DateFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.*;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +27,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         String now = DateUtils.formatDateTime(getApplicationContext(),(new Date()).getTime(), DateFormat.FULL);
         tv_hw.setText(now);
         btn_hw.setOnClickListener(this);
-    }
 
+    }
 
     @Override
     public void onClick(View view) {
         Toast.makeText(getApplicationContext(), getString(R.string.hello_world), Toast.LENGTH_LONG).show();
         notification_test();
+        test_intent();
     }
 
     public void notification_test(){
@@ -46,5 +49,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.toast_me, menu);
         return true;
+    }
+
+    public void test_intent(){
+        Intent i = new Intent(this, SecondActivity.class);
+        startActivity(i);
     }
 }

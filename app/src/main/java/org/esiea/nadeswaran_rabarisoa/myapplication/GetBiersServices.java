@@ -5,6 +5,19 @@ import android.content.Intent;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
+import static android.content.ContentValues.TAG;
+
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
@@ -50,7 +63,37 @@ public class GetBiersServices extends IntentService {
      */
     private void handleActionBiers() {
         // TODO: Handle action Foo
-        Log.i("TAG", "Downloaded");
+        Log.d(TAG, "Thread service name:" +Thread.currentThread().getName());
+        URL url = null;
+        try {
+            url = new URL("http://binouze.fabrigli.fr/bieres.json");
+            HttpsURLConnection conn =(HttpsURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            if (HttpsURLConnection.HTTP_OK == conn.getResponseCode()){
+                copyInputStreamToFile(conn.getInputStream(),new File(getCacheDir(), "bieres.json"));
+                Log.d(TAG, "Bières json downloaded");
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
+    private void copyInputStreamToFile(InputStream in, File file){
+        try{
+            OutputStream out = new FileOutputStream(file);
+            byte[] buf = new byte[1024];
+            int len;
+            while((len=in.read(buf))>0){
+                out.write(buf,0,len);
+            }
+            out.close();
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -3,4 +3,6 @@
     <string name="app_name">Mon Application</string>
     <string name="button_text">Cliquez</string>
     <string name="hello_world">Salut le monde!</string>
+    <string name="next_page">Page suivante</string>
+    <string name="back">Retour</string>
 </resources>

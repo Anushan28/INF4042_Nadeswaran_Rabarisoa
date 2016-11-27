@@ -7,6 +7,7 @@ import android.icu.text.DateFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
+import android.support.v7.widget.ButtonBarLayout;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.View;
@@ -24,19 +25,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         TextView tv_hw = (TextView)findViewById(R.id.tv_hw);
         Button btn_hw = (Button) findViewById(R.id.btn_hw);
+        Button btn_np = (Button) findViewById(R.id.btn_np);
         String now = DateUtils.formatDateTime(getApplicationContext(),(new Date()).getTime(), DateFormat.FULL);
         tv_hw.setText(now);
         btn_hw.setOnClickListener(this);
+        btn_np.setOnClickListener(this);
 
     }
 
     @Override
-    public void onClick(View view) {
-        Toast.makeText(getApplicationContext(), getString(R.string.hello_world), Toast.LENGTH_LONG).show();
-        notification_test();
-        test_intent();
-        GetBiersServices.startActionBiers(this);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_hw:
+                Toast.makeText(getApplicationContext(), getString(R.string.hello_world), Toast.LENGTH_LONG).show();
+                notification_test();
+                break;
+
+            case R.id.btn_np:
+                test_intent();
+                break;
+
+            default:
+                break;
+        }
+
     }
+
 
     public void notification_test(){
         NotificationCompat.Builder noti = new NotificationCompat.Builder(this);

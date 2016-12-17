@@ -3,6 +3,7 @@ package org.esiea.nadeswaran_rabarisoa.myapplication;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.io.File;
@@ -11,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -28,7 +30,8 @@ import static android.content.ContentValues.TAG;
 public class GetBiersServices extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String GET_ALL_BIERS = "org.esiea.nadeswaran_rabarisoa.myapplication.action.get_all_biers";
+    private static final String GET_ALL_BIERS = "Télécharger une liste de bières";
+    private static final String EXTRA_PARAM1 = "com.esiea.nadeswaran_rabarisoa.myapplication.extra.PARAM1";
 
     public GetBiersServices() {
         super("GetBiersServices");
@@ -52,7 +55,8 @@ public class GetBiersServices extends IntentService {
         if (intent != null) {
             final String action = intent.getAction();
             if (GET_ALL_BIERS.equals(action)) {
-                handleActionBiers();
+                final String param1 = intent.getStringExtra(EXTRA_PARAM1);
+                handleActionBiers(param1);
             }
         }
     }
@@ -61,25 +65,24 @@ public class GetBiersServices extends IntentService {
      * Handle action Foo in the provided background thread with the provided
      * parameters.
      */
-    private void handleActionBiers() {
+    private void handleActionBiers(String param1) {
         // TODO: Handle action Foo
-        Log.d(TAG, "Thread service name:" +Thread.currentThread().getName());
+        Log.d("ou", "thread service name:" +Thread.currentThread().getName());
         URL url = null;
         try {
             url = new URL("http://binouze.fabrigli.fr/bieres.json");
-            HttpsURLConnection conn =(HttpsURLConnection) url.openConnection();
+            HttpURLConnection conn =(HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
-            if (HttpsURLConnection.HTTP_OK == conn.getResponseCode()){
+            if (HttpURLConnection.HTTP_OK == conn.getResponseCode()){
                 copyInputStreamToFile(conn.getInputStream(),new File(getCacheDir(), "bieres.json"));
-                Log.d(TAG, "Bières json downloaded");
+                Log.d("ou", "bières json downloaded");
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void copyInputStreamToFile(InputStream in, File file){

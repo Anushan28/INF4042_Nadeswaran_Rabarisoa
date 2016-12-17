@@ -5,4 +5,5 @@
     <string name="hello_world">Salut le monde!</string>
     <string name="next_page">Page suivante</string>
     <string name="back">Retour</string>
+    <string name="download">Télécharger</string>
 </resources>

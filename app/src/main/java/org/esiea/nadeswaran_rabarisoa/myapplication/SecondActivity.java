@@ -14,13 +14,9 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         Button btn_back = (Button) findViewById(R.id.btn_back);
+        Button btn_dl = (Button) findViewById(R.id.btn_dl);
         btn_back.setOnClickListener(this);
-    }
-
-    public void test_intent2(){
-        Intent s = new Intent(this, GetBiersServices.class);
-        startActivity(s);
-        GetBiersServices.startActionBiers(this);
+        btn_dl.setOnClickListener(this);
     }
 
     @Override
@@ -29,6 +25,10 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btn_back:
                 Intent s = new Intent(this, MainActivity.class);
                 startActivity(s);
+                break;
+
+            case R.id.btn_dl:
+                GetBiersServices.startActionBiers();
                 break;
 
             default:
